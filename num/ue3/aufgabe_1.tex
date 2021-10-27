@@ -1,0 +1,69 @@
+\documentclass[]{article}
+
+\usepackage{amsfonts} 
+\usepackage{amsmath}
+
+%opening
+\title{NUM UE3}
+\author{Ida Hönigmann}
+
+\begin{document}
+
+\maketitle
+
+\section{Aufgabe 1:}
+
+Für $x=x_j$ für ein $j \in \{0, ..., n\}$ ist die Aussage trivial.
+
+Nehmen wir nun an $x\neq x_j \forall j \in \{0, ..., n\}$. Definieren wir das Polynom
+
+\[w(y)=\prod_{j=0}^{n}(y-x_j)^{n_j+1} \in \mathbb{P}_{N+1}\]
+
+und die Funktion
+
+\[F:[a,b]\to \mathbb{R}, F(y) = (f(x)-p(x))*w(y) - (f(y)-p(y))*w(x) \in C^{N+1}[a, b].\]
+
+Die $k$-te Ableitung berechnet sich durch
+
+\[F^{(k)}(y)=(f(x)-p(x))w^{(k)}(y)-(f^{(k)}(y)-p^{(k)}(y))w(x).\]
+
+Aus den zwei Rechnungen
+
+\[\forall j \in \{0, ..., n\}: F(x_j) = (f(x)-p(x))*w(x_j)-(f(x_j)-p(x_j))*w(x) = (f(x)-p(x))*\prod_{j=0}^{n}(y-x_j)^{n_j+1}\]
+
+und
+
+\[F(x)=(f(x)-p(x))w(x)-(f(x)-p(x))w(x)=0\]
+
+folgt, dass $F$ die Nullstellen $x$ und $\forall j\in \{0, ..., n\} x_j$ mit Vielfachheit $n_j$ besitzt, also insgesamt $n+2$ viele.
+
+Demnach hat $F'$ zumindest $n+1$ Nullstellen, wobei auch $\{x_j:n_j\geq 1\}$ Nullstellen mit jeweils Vielfachheit $n_j - 1$ dazukommen. Daraus folgt, dass die Summe der Vielfachheiten von F gleich $n+1+\sum_{j=0}^{n}(n_j)+1 = \sum_{j=0}^{n}(1)-1+1+\sum_{j=0}^{n}(n_j)+1=\sum_{j=0}^{n}(n_j+1)+1=N+2$ ist.
+
+Das bedeutet, dass $F^{(N+1)}$ eine Nullstelle $\xi \in [a,b]$ besitzt.
+
+\[0=F^{(N+1)}(\xi)=(f(x)-p(x))w^{(N+1)}(\xi)-(f^{(N+1)}(\xi)-p^{(N+1)}(\xi))w(x)\]
+
+$w^{(N+1)}(\xi) = (N+1)!$ nach der Definition von $w$ und $p^{(N+1)}(\xi)=0$ da $p \in \mathbb{P}_N$.
+
+\begin{align*}
+	0 &= (f(x)-p(x))(N+1)!-f^{(N+1)}(\xi)w(x) \\
+	(f(x)-p(x))(N+1)! &= f^{(N+1)}(\xi)w(x) \\
+	f(x)-p(x) &= \frac{f^{(N+1)}(\xi)}{(N+1)!} \prod_{j=0}^{n}(x-x_j)^{n_j+1}\\
+\end{align*}
+
+Um die Fehlerabschätzung zu erhalten bilden wir auf beiden Seiten der Gleichung den Betrag.
+
+\begin{align*}
+	|f(x)-p(x)| &= \left| \frac{f^{(N+1)}(\xi)}{(N+1)!} \prod_{j=0}^{n}(x-x_j)^{n_j+1}\right| \\
+	& \leq \frac{\|f^{(N+1)}\|_{L_\infty}}{(N+1)!} \prod_{j=0}^{n}|x-x_j|^{n_j+1} \\
+\end{align*}
+
+Für komplexwertige Funktionen teilen wir $f(x)-p(x)$ in Real- und Imaginärteil auf und schätzen beide mit der Fehlerabschätzung für reellwertige Funktionen ab. Dann gilt
+
+\begin{align*}
+	|f(x)-p(x)| &= \sqrt{Im(f(x)-p(x))^2 + Re(f(x)-p(x))^2} \\
+	 & \leq \sqrt{2*\left(\frac{\|f^{(N+1)}\|_{L_\infty}}{(N+1)!} \prod_{j=0}^{n}|x-x_j|^{n_j+1}\right)^2} \\
+	 &= \sqrt{2} * \left(\frac{\|f^{(N+1)}\|_{L_\infty}}{(N+1)!} \prod_{j=0}^{n}|x-x_j|^{n_j+1}\right). \\
+\end{align*}
+
+\end{document}
