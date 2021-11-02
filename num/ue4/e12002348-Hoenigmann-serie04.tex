@@ -50,5 +50,33 @@ Insgesamt ergibt das
 
 Somit ist gezeigt, dass $V_nAV_n^{-1} = D$.
 
+\section{Aufgabe 15:}
+Nach Aufgabe 14 gilt $V_nAV_n^{-1} = D$, was uns $A = V_n^{-1}DV_n$ und weiter $A^{-1}=V_n^{-1}D^{-1}V_n$ liefert. Die Inverse von $A$ existiert wegen der Regularität.
+
+Von $V_n$ wissen wir, dass $V_n^{-1} = \frac{1}{n} \overline{V_n}$ und durch die Diagonalform von $D$ gilt $D^{-1}=\overline{D}$.
+
+Um $Ax=b$ zu lösen können wir einfach $x = A^{-1}b = \frac{1}{n} \overline{V_n} \bar{D}V_nb$ berechnen.
+
+Schauen wir uns zuerst die Berechnung von $D$ an.
+
+Es sei $a$ der Vektor aus dem die zirkulante Matrix $A$ aufgebaut ist und $v_1$ die erste Spalte von $V_n$. Für $v_1$ gilt $v_1 = (1)_{j=0}^{n-1}$. Es gilt $V_nA = DV_n$ und somit auch für die erste Spalte $V_na = Dv_1 = D*(1, 1, ..., 1)^T = (p(1), p(w_n), ..., p(w_n^{n-1}))$.
+
+Somit berechnet folgender Algorithmus die Lösung von $Ax=b$:
+
+\begin{enumerate}
+	\item Berechnen von $d:=V_na$ mittels FFT
+	\item Berechnen von $\bar{d}$ komponentenweise
+	\item Berechnen von $x:=V_nb$ mittels FFT
+	\item Berechnen von $y:=\bar{d}*x$ komponentenweise
+	\item Berechnen von $\bar{y}$ komponentenweise
+	\item Berechnen von $z:=V_n\bar{y}$ mittels FFT
+	\item Berechnen von $\bar{z}$ komponentenweise
+	\item Berechnen von $\frac{1}{n}\bar{z}$ komponentenweise
+\end{enumerate}
+
+Der Aufwand beträgt 3 FFTs und 5 komponentenweisen Berechnungen, also $3*(n log_2 n) + 5n$ bzw. $O(n log n)$.
+
+\section{Aufgabe 16:}
+
 
 \end{document}
