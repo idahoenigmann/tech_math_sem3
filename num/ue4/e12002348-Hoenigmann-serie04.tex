@@ -1,0 +1,54 @@
+\documentclass[]{article}
+
+\usepackage{amsfonts} 
+\usepackage{amsmath}
+\usepackage[margin=3cm]{geometry}
+
+%opening
+\title{NUM UE4}
+\author{Ida Hönigmann}
+
+\begin{document}
+
+\maketitle
+
+\section{Aufgabe 14:}
+Wir zeigen $V_nA = DV_n$ indem wir auf jeder Seite den Wert in der j-ten Zeile und k-ten Spalte berechnen.
+
+Wir wissen, dass
+
+\[
+(V_n)_{jk} = w_n^{j*k}.
+\]
+
+Durch die Diagonalstruktur der Matrix $D$ wird bei einer Multiplikation mit $D$ von links jede Zeile mit dem entsprechenden Wert aus $D$ skaliert, d.h.
+
+\[
+(DV_n)_{jk} = p(w_n^j)*w_n^{j*k} = (\sum_{l=0}^{n-1}a_l*w_n^{j*l}) * w_n^{j*k} = \sum_{l=0}^{n-1}a_l*w_n^{j(l+k)}.
+\]
+
+Um $(V_nA)_{jk}$ auszurechnen wollen wir uns zunächst die entsprechende Zeile von $V_n$ und Spalte von $A$ ansehen:
+
+\begin{align*}
+(V_nA)_{jk} &= (w_n^{j*0}, w_n^{j*1}, ..., w_n^{j*(n-1)}) * (a_{n-k}, a_{n-k+1}, ..., a_{n-1}, a_0, a_1, ..., a_{n-k-1})^T \\
+ &= \sum_{l=0}^{k-1} (w_n^{j*l} * a_{n-k+l}) + \sum_{l=0}^{n-k-1} (w_n^{j*(l+k)}*a_l) \\
+ &= \sum_{l=n-k}^{k-1+n-k} (w_n^{j*(l-n+k)} * a_{n-k+l-n+k}) + \sum_{l=0}^{n-k-1} (w_n^{j*(l+k)}*a_l) \\
+  &= \sum_{l=n-k}^{n-1} (w_n^{j*(l+k-n)} * a_{l}) + \sum_{l=0}^{n-k-1} (w_n^{j*(l+k)}*a_l)
+\end{align*}
+
+Da $w_n$ die n-te Einheitswurzel ist gilt $(w_n)^n = 1$ und somit
+
+\[
+w_n^{j(l+k-n)} = \frac{w_n^{j(l+k)}}{w_n^{j*n}} = \frac{w_n^{j(l+k)}}{((w_n)^{n})^{j}} = \frac{w_n^{j(l+k)}}{1} = w_n^{j(l+k)}.
+\]
+
+Insgesamt ergibt das
+
+\[
+(V_nA)_{jk} = \sum_{l=n-k}^{n-1} (w_n^{j*(l+k)} * a_{l}) + \sum_{l=0}^{n-k-1} (w_n^{j*(l+k)}*a_l) = \sum_{l=0}^{n-1} (w_n^{j*(l+k)} * a_{l}) = (DV_n)_{jk}.
+\]
+
+Somit ist gezeigt, dass $V_nAV_n^{-1} = D$.
+
+
+\end{document}
