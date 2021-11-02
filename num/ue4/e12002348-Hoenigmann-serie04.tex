@@ -77,6 +77,62 @@ Somit berechnet folgender Algorithmus die Lösung von $Ax=b$:
 Der Aufwand beträgt 3 FFTs und 5 komponentenweisen Berechnungen, also $3*(n log_2 n) + 5n$ bzw. $O(n log n)$.
 
 \section{Aufgabe 16:}
+Wenn $A \in \mathbb{K}^{n\times n}$ eine Toeplitz-Matrix ist, können wir sie wie folgt in eine zirkulante Matrix $B \in \mathbb{K}^{2n\times 2n}$ einbetten:
 
+\[
+B := 
+\begin{pmatrix}
+	\begin{matrix}
+		a_{-n+1} & a_{n-1}  & \cdots & a_{1}   \\
+		a_{-n+2} & a_{-n+1} & \cdots & a_{2}   \\
+		\vdots   & \vdots   & \ddots & \vdots  \\
+		a_{-1}   & a_{-2}   & \cdots & a_{n-1} 
+	\end{matrix} &
+	\begin{matrix}
+		a_{0}   & \cdots & a_{-n+2} \\
+		a_{1}   & \cdots & a_{-n+3} \\
+		\vdots  & \ddots & \vdots   \\
+		a_{n-2} & \cdots & a_{0} 
+	\end{matrix} \\
+
+	\underbrace{
+		\begin{bmatrix}
+			a_{0}   & a_{-1}  & \cdots & a_{-n+1}  \\
+			a_{1}   & a_{0}   & \cdots & a_{-n+2}  \\
+			a_{2}   & a_{1}   & \cdots & a_{-n+3}  \\
+			\vdots  & \vdots  & \ddots & \vdots    \\
+			a_{n-1} & a_{n-2} & \cdots & a_{0} 
+		\end{bmatrix}
+	}_{=A}
+	 &
+	\begin{matrix}
+		a_{n-1}  & \cdots & a_{1}    \\
+		a_{-n+1} & \cdots & a_{2}    \\
+		a_{-n+2} & \cdots & a_{3}    \\
+		\vdots   & \ddots & \vdots   \\
+		a_{-1}   & \cdots & a_{-n+1} 
+	\end{matrix}
+\end{pmatrix}
+\]
+
+Wenn wir $y:=(x_1, x_2, ..., x_n, 0, .., 0)^T \in \mathbb{K}^{2n}$ (als ''Erweiterung'' von x) setzten. Erhalten wir $z:=A*x = (z_1, z_2, ..., z_n)^T \in \mathbb{K}^n$ indem wir uns die letzen n Werte von $B*y=(?, ?, ..., ?, z_1, z_2, ..., z_n)^T$ ansehen.
+
+Nun können wir mit der zirkulanten Matrix $B$ arbeiten, von der wir aus Beispiel 14 wissen, dass $B=V_n^{-1}DV_n=\frac{1}{n}\overline{V_n}DV_n$ gilt.
+
+Sei $b$ der Vektor aus dem die Matrix $B$ aufgebaut ist.
+
+Um nun $B*y=\frac{1}{n}\overline{V_n}DV_ny$ und somit $A*x$ zu berechnen können wir folgendem Algorithmus folgen:
+
+\begin{enumerate}
+	\item Berechnen von $d:=V_nb$ mittels FFT
+	\item Berechnen von $f:=V_ny$ mittels FFT
+	\item Berechnen von $g:=d*f$ komponentenweise
+	\item Berechnen von $\bar{g}$ komponentenweise
+	\item Berechnen von $h:= V_n\bar{g}$ mittels FFT
+	\item Berechnen von $\bar{h}$ komponentenweise
+	\item Berechnen von $z:= \frac{1}{n} \bar{h}$ komponentenweise
+\end{enumerate}
+
+Dann sind die letzten n Werte von $z$ das Ergebnis von $Ax$. Der Aufwand des Algorithmus beträgt 3 Mal den Aufwand einer FFT ($2n * log_2 (2n)$) und 4 komponentenweise Rechnungen (Aufwand von $2n$), also $O(n log n)$.
 
 \end{document}
