@@ -31,13 +31,13 @@
 		
 		\begin{align*}
 			X := [a,b]^2 && x^* := (x_0, x_0) && \Phi &: X \rightarrow X \\
-			&& && (a_k, b_k) &\mapsto \begin{cases}
-				(a_k, c_k), &\quad\text{falls} f(a_k)f(c_k)\le 0 \\
-				(c_k, b_k), &\quad\text{sonst}
+			&& && (x, y) &\mapsto \begin{cases}
+				(x, c), &\quad\text{falls} f(x)f(c)\le 0 \\
+				(c, y), &\quad\text{sonst}
 			\end{cases}
 		\end{align*}
 		
-		wobei $c_k:=\frac{a_k+b_k}{2}$. Dann ist $(X, \Phi, x^*)$ ein abstraktes Iterationsverfahren, dass das Bisektionsverfahren abbildet.
+		wobei $c:=\frac{x+y}{2}$. Dann ist $(X, \Phi, x^*)$ ein abstraktes Iterationsverfahren, dass das Bisektionsverfahren abbildet.
 		
 		\item
 		
