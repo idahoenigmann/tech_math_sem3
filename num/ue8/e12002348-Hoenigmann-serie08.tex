@@ -6,6 +6,13 @@
 \usepackage{enumitem}
 \usepackage{amsthm}
 
+\newcommand{\norm}[1]{||#1||}
+\newcommand{\normx}[1]{\norm{#1}_X}
+\newcommand{\Azero}{(0)_{i,j \in \{1,...,n\}}}
+\newcommand{\supn}{\sup_{x \in \mathbb{K}^n\setminus\{0\}}}
+\newcommand{\supo}{\sup_{\normx{x}=1}}
+\newcommand{\supl}{\sup_{\normx{x}\leq1}}
+
 %opening
 \title{NUM UE8}
 \author{Ida Hönigmann}
@@ -112,5 +119,45 @@
 \newpage
 
 \section{Aufgabe 32:}
+\begin{proof}
+	Nenn wir der Lesbarkeit halber die Norm auf $\mathbb{K}^n$ $\normx{.}$ und die Operator-Norm $\norm{.}$.
+	
+	\begin{enumerate}[label=\alph*)]
+		\item zz: $\norm{.}$ ist eine Norm
+		\begin{enumerate}[label=(N\arabic*)]
+			\item zz: $\forall A \in \mathbb{K}^{n \times n}: \norm{A}\geq 0 \land \norm{A}=0 \iff A=\Azero$
+			
+			Sei $A \in \mathbb{K}^{n \times n}$ beliebig. Da $\normx{.}$ eine Norm ist gilt $\forall x \in \mathbb{K}^n: \normx{Ax} \geq 0 \land \normx{x} \geq 0$. Also folgt
+			
+			\begin{align*}
+				\norm{A}=\supn\frac{\normx{Ax}}{\normx{A}}\geq 0.
+			\end{align*}
+		
+			Für $A=\Azero$ gilt $\forall x \in \mathbb{K}^n\setminus\{0\}: \normx{Ax} = \normx{(0)_{i\in\{1,...,n\}}} = 0$ und somit $\norm{A}=\supn\frac{\normx{Ax}}{\normx{x}}=0$.
+			
+			Damit $\norm{A}=\supn\frac{\normx{Ax}}{\normx{x}}=0$ muss $\forall x \in \mathbb{K}^n\setminus\{0\}: \normx{Ax} = 0 \implies A = \Azero$.
+			
+			\item zz: $\forall A \in \mathbb{K}^{n\times n} \forall \lambda \in \mathbb{K}: \norm{\lambda A} = |\lambda|\cdot\norm{A}$.
+			
+			Sei $A \in \mathbb{K}^{n \times n}$ und $\lambda \in \mathbb{K}$  beliebig.
+			
+			\begin{align*}
+				\norm{\lambda A} = \supn\frac{\normx{\lambda Ax}}{\normx{x}} = \supn\frac{|\lambda|\cdot\normx{Ax}}{\normx{x}} = |\lambda| \supn\frac{\cdot\normx{Ax}}{\normx{x}} = |\lambda|\cdot \norm{A}
+			\end{align*}
+		
+			\item zz: $\forall A, B \in \mathbb{K}^{n \times n}: \norm{A+B}\leq \norm{A}+\norm{B}$
+			
+			Sei $A, B \in \mathbb{K}^{n \times n}$ beliebig.
+			
+			\begin{align*}
+				\norm{A+B} &= \supn\frac{\normx{(A+B)x}}{\normx{x}} = \supn\frac{\normx{Ax+Bx}}{\normx{x}} \leq \supn\frac{\normx{Ax}+\normx{Bx}}{\normx{x}}\\
+				&= \supn\frac{\normx{Ax}}{\normx{x}} + \supn\frac{\normx{Bx}}{\normx{x}} = \norm{A} + \norm{B}
+			\end{align*}
+		\end{enumerate}
+	
+		\item zz: $\norm{A}=\supo\normx{Ax}=\supl\normx{Ax}=\inf\{C>0: \normx{Ax}\leq C\normx{x} \forall x \in \mathbb{K}^n\}$
+	\end{enumerate}
+\end{proof}
+
 
 \end{document}
