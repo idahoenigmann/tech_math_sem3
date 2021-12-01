@@ -4,6 +4,7 @@
 \usepackage{amsmath}
 \usepackage[margin=3cm]{geometry}
 \usepackage{enumitem}
+\usepackage{amsthm}
 
 %opening
 \title{NUM UE8}
@@ -15,82 +16,101 @@
 
 \section{Aufgabe 29:}
 
-\begin{enumerate}[label=\alph*)]
-	\item 
+\begin{proof}
+	\begin{enumerate}[label=\alph*)]
+		\item 
+		
+		Sei $x_0 \in [a,b]$ eine Nullstelle von $f$.
+		
+		\begin{align*}
+			X := [a,b]^2 && x^* := (x_0, x_0) && \Phi &: X \rightarrow X \\
+			&& && (a_k, b_k) &\mapsto \begin{cases}
+				(a_k, c_k), &\quad\text{falls} f(a_k)f(c_k)\le 0 \\
+				(c_k, b_k), &\quad\text{sonst}
+			\end{cases}
+		\end{align*}
+		
+		wobei $c_k:=\frac{a_k+b_k}{2}$. Dann ist $(X, \Phi, x^*)$ ein abstraktes Iterationsverfahren, dass das Bisektionsverfahren abbildet.
+		
+		\item
+		
+		\begin{align*}
+			d &:X^2\rightarrow\mathbb{R} \\
+			((a,b),(x,y))&\mapsto ||a - b| - |x - y||
+		\end{align*}
+		
+		\begin{align*}
+			\forall (a,b), (x,y) \in X: d((a,b),(x,y))\geq 0\\
+			\forall (a,b) \in X: d((a,b),(a,b)) = ||a - b| - |a - b|| = 0\\
+			\forall (a,b), (x,y) \in X: d((a,b),(x,y)) = ||a - b| - |x - y|| = ||x - y| - |a - b|| = d((x,y),(a,b))\\
+			\forall (a,b), (x,y), (c,d) \in X: d((a,b),(x,y)) + d((x,y), (c,d)) = ||a - b| - |x - y|| + ||x - y| - |c - d|| \\
+			\geq ||a - b| - |x - y| + |x - y| - |c - d|| = ||a - b| - |c - d|| = d((a,b), (c,d))
+		\end{align*}
+		
+		Somit ist $d$ eine Metrik auf $X$.
+		
+		Sei $(a,b), (x,y) \in X$ beliebig.
+		
+		\begin{align*}
+			d(\Phi(a,b), \Phi(x,y))=
+			\begin{cases}
+				d_2((a, \frac{a+b}{2}), (x,\frac{x+y}{2})) =
+				\left|\left|a - \frac{a+b}{2}\right| - \left|x - \frac{x+y}{2}\right|\right| =
+				\left|\left|\frac{a+b}{2} - a\right| - \left|\frac{x+y}{2} - x\right|\right| \\
+				d_2((a, \frac{a+b}{2}), (\frac{x+y}{2},y))  =
+				\left|\left|a - \frac{a+b}{2}\right| - \left|\frac{x+y}{2} - y\right|\right| =
+				\left|\left|\frac{a+b}{2} - a\right| - \left|\frac{x+y}{2} - y\right|\right| \\
+				d_2((\frac{a+b}{2}, b), (x,\frac{x+y}{2}))  =
+				\left|\left|\frac{a+b}{2} - b\right| - \left|x - \frac{x+y}{2}\right|\right| =
+				\left|\left|\frac{a+b}{2} - b\right| - \left|\frac{x+y}{2} - x\right|\right| \\
+				d_2((\frac{a+b}{2}, b), (\frac{x+y}{2},y))  =
+				\left|\left|\frac{a+b}{2} - b\right| - \left|\frac{x+y}{2} - y\right|\right| =
+				\left|\left|\frac{a+b}{2} - b\right| - \left|\frac{x+y}{2} - y\right|\right|
+			\end{cases}\\
+			= \left|\left|\frac{a-b}{2}\right|-\left|\frac{x-y}{2}\right|\right|=\frac{1}{2}||a-b|-|x-y||
+		\end{align*}
+		
+		\begin{align*}
+			d((a,b),(x,y)) = ||a-b|-|x-y||
+		\end{align*}
+		
+		Also $\forall (a,b), (x,y) \in X: d(\Phi(a,b), \Phi(x,y)) \le q d_2((a,b),(x,y))$ mit $q:=\frac{1}{2}$. Somit gilt nach Banach'schem Fixpunktsatz, dass $(X, \Phi, x^*)$ für alle Startwerte aus $X$ global und linear mit $q=\frac{1}{2}$ gegen $x^*$ konvergiert.
+		
+		\vspace{3cm}
+		
+		Noch einmal nachgerechnet:
+		
+		\begin{itemize}
+			\item Globale Konvergenz: Wir wollen zeigen, dass $(a_k, b_k)_{k \in \mathbb{N}}$ eine Cauchy-Folge ist und somit konvergiert.	
+			Da wie oben gezeigt gilt, dass $\forall k \in \mathbb{N}: |a_{k+1} - b_{k+1}| = \frac{1}{2}|a_k - b_k|$ folgt durch vollständige Induktion, dass
+			
+			\begin{align*}
+				\forall k \in \mathbb{N}: |a_k - b_k| = \frac{1}{2^{1}}|a_{k-1} - b_{k-1}| = \frac{1}{2^{2}}|a_{k-2} - b_{k-2}| = ... = \frac{1}{2^{k}}|a_0 - b_0|.
+			\end{align*}
+			
+			Sei $\epsilon > 0$ beliebig. Sei $k, l \in \mathbb{N}$ beliebig.
+			
+			\begin{align*}
+				d((a_k, b_k), (a_l, b_l)) = ||a_k - b_k| - |a_l - b_l|| = \left|\frac{1}{2^{k}}|a_0 - b_0| - \frac{1}{2^{l}}|a_0 - b_0|\right| = \left|\frac{1}{2^{k}}-\frac{1}{2^{l}}\right||a_0 - b_0| < \epsilon
+			\end{align*}
+			
+			für groß genug gewählte $k$ und $l$. Also handelt es sich um eine Cauchy-Folge und sie ist somit konvergent gegen $x^*$ (laut VO gilt $\exists \lim\limits_{k\rightarrow\infty}x_k$, so gilt $\lim\limits_{x\rightarrow\infty}x_k = x^*$ da es sich um den einzigen Fixpunkt handelt).
+			
+			\item Lineare Konvergenz: Sei $\epsilon >0$, $(a_0, b_0) \in U_\epsilon(x^*)$ und $k \in \mathbb{N}$ beliebig.
+			
+			\begin{align*}
+				d((a_{k+1}, b_{k+1}), (x_0, x_0)) = ||a_{k+1} - b_{k+1}| - |x_0 - x_0|| = \frac{1}{2}|a_{k} - b_{k}| = \frac{1}{2} d((a_k, b_k), (x_0, x_0))
+			\end{align*}
+			
+			Also ist $(X, \Phi, x^*)$ linear mit $q=\frac{1}{2}$ konvergent.
+		\end{itemize}
+		
+	\end{enumerate}
 	
-	Sei $x_0 \in [a,b]$ eine Nullstelle von $f$.
-	
-	\begin{align*}
-		X := [a,b]^2 && x^* := (x_0, x_0) && \Phi &: X \rightarrow X \\
-		&& && (a_k, b_k) &\mapsto \begin{cases}
-			(a_k, c_k), &\quad\text{falls} f(a_k)f(c_k)\le 0 \\
-			(c_k, b_k), &\quad\text{sonst}
-		\end{cases}
-	\end{align*}
+\end{proof}
 
-	wobei $c_k:=\frac{a_k+b_k}{2}$. Dann ist $(X, \Phi, x^*)$ ein abstraktes Iterationsverfahren, dass das Bisektionsverfahren abbildet.
-	
-	\item
-	
-	\begin{align*}
-		d_1&:\mathbb{R}^2\rightarrow\mathbb{R} & d_2 &:(\mathbb{R}^2)^2\rightarrow\mathbb{R} \\
-		(a,b)&\mapsto |a-b| & ((a,b),(x,y))&\mapsto|d_1(a,b) - d_1(x,y)| 
-	\end{align*}
+\newpage
 
-	sind beides Metriken auf $\mathbb{R}$ bzw. $\mathbb{R}^2$.
-	
-	Sei $(a,b), (x,y) \in X^2$ beliebig.
-	
-	\begin{align*}
-		d_2(\Phi(a,b), \Phi(x,y))=
-		\begin{cases}
-			d_2((a, \frac{a+b}{2}), (x,\frac{x+y}{2})) \\
-			d_2((a, \frac{a+b}{2}), (\frac{x+y}{2},y)) \\
-			d_2((\frac{a+b}{2}, b), (x,\frac{x+y}{2})) \\
-			d_2((\frac{a+b}{2}, b), (\frac{x+y}{2},y)) 
-		\end{cases}
-		= \left|\frac{a+b}{2}-\frac{x+y}{2}\right| = \frac{1}{2} |a+b-(x+y)| \\
-		d_2((a,b),(x,y))=||a-b|-|x-y||=||b-a|-|x-y||\le|b-a+x-y|=...=|a+b-(x+y)|
-	\end{align*}
-	
-	Also $\forall (a,b), (x,y) \in X: d_2(\Phi(a,b), \Phi(x,y)) \le q d_2((a,b),(x,y))$ mit $q:=\frac{1}{2}$. Somit gilt nach Banach'schem Fixpunktsatz, dass $(X, \Phi, x^*)$ für alle Startwerte aus $X$ global und linear mit $q=\frac{1}{2}$ gegen $x^*$ konvergiert.
-	
-	Globale Konvergenz: Wir wollen zeigen, dass $(a_k, b_k)_{k \in \mathbb{N}}$ eine Cauchy-Folge ist und somit konvergiert. Sei $\epsilon > 0$ beliebig. Sei $k, l \in \mathbb{N}$ beliebig.
-	
-	\begin{align*}
-		d_2((a_k, b_k), (a_l, b_l)) = |d_1(a_k, b_k) - d_1(a_l, b_l)|
-	\end{align*}
-	
-	O.b.d.A gilt $k < l$. Da $\forall k \in \mathbb{N}: d_1(a_{k+1}, b_{k+1}) = \frac{1}{2}d_1(a_k, b_k)$ folgt durch vollständige Induktion, dass
-	
-	\begin{align*}
-		\forall k \in \mathbb{N}: d_1(a_k, b_k) = \frac{1}{2^{k}}d_1(a_0, b_0) =\frac{1}{2^{k}}|a_0 - b_0|.
-	\end{align*}
-	
-	Somit gilt
-	
-	\begin{align*}
-		|d_1(a_k, b_k) - d_1(a_l, b_l)| = \left|\frac{1}{2^{k}}|a_0 - b_0| - \frac{1}{2^{l}}|a_0 - b_0|\right| = \left|\frac{1}{2^{k}}-\frac{1}{2^{l}}\right||a_0 - b_0| = \left|\frac{1}{2^{k}}-\frac{1}{2^{l}}\right||a_0 - b_0| < \epsilon
-	\end{align*}
-	
-	für groß genug gewählte $k$ und $l$. Also handelt es sich um eine Cauchy-Folge und ist somit konvergent gegen $x^*$.  
-	
-	
-	
-	Lineare Konvergenz: Sei $\epsilon >0$, $(a_0, b_0) \in U_\epsilon(x^*)$ und $k \in \mathbb{N}$ beliebig.
-	
-	\begin{align*}
-		d_2(x_{k+1},x^*) = d_2((a_{k+1}, b_{k+1}), (x_0, x_0)) = d_2(d_1(a_{k+1}, b_{k+1}) - \underbrace{d_1(x_0, x_0)}_{=0}) = |a_{k+1} - b_{k+1}| \\
-		d_2(x_{k}, x^*) = |a_{k} - b_{k}| = 2 |a_{k+1} - b_{k+1}| \\
-		\implies d_2(x_{k+1}, x^*) = \frac{1}{2} d_2(x_k, x^*)
-	\end{align*}
-
-	Also ist $(X, \Phi, x^*)$ linear konvergent.
-
-	
-	
-\end{enumerate}
-
-
+\section{Aufgabe 32:}
 
 \end{document}
