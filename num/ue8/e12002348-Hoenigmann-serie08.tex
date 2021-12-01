@@ -6,7 +6,7 @@
 \usepackage{enumitem}
 \usepackage{amsthm}
 
-\newcommand{\norm}[1]{||#1||}
+\newcommand{\norm}[1]{\left|\left|#1\right|\right|}
 \newcommand{\normx}[1]{\norm{#1}_X}
 \newcommand{\Azero}{(0)_{i,j \in \{1,...,n\}}}
 \newcommand{\supn}{\sup_{x \in \mathbb{K}^n\setminus\{0\}}}
@@ -156,6 +156,83 @@
 		\end{enumerate}
 	
 		\item zz: $\norm{A}=\supo\normx{Ax}=\supl\normx{Ax}=\inf\{C>0: \normx{Ax}\leq C\normx{x} \forall x \in \mathbb{K}^n\}$
+		
+		Wir zeigen zuerst die Gleichheit $\norm{A}=\inf\{C>0: \normx{Ax}\leq C\normx{x} \forall x \in \mathbb{K}^n\}$.
+		
+		Da $\norm{A}$ existiert ist die Menge $\{\frac{\normx{Ax}}{\normx{x}}:x\in\mathbb{K}^n\setminus\{0\}\}$ beschränkt, d.h. $\exists C>0 \forall x\in\mathbb{K}^n\setminus\{0\} : C \geq \frac{\normx{Ax}}{\normx{x}}$. Für solche $C$ gilt nach Umformen $\normx{Ax}\leq C\normx{x}$.
+		
+		Die Menge $\{C>0:\normx{Ax}\leq C\normx{x} \forall x \in \mathbb{K}^n\}$ hat $\norm{A}$ als untere Schranke. Alle Werte kleiner als $\norm{A}$ können keine unteren Schranken mehr sein, da sonst $\norm{A}$ nicht das Supremum von $\{\frac{\normx{Ax}}{\normx{x}}:x\in\mathbb{K}^n\setminus\{0\}\}$ wäre.
+		
+		\begin{align*}
+			\implies \norm{A} = \inf\{C>0: \normx{Ax}\leq C\normx{x} \forall x \in \mathbb{K}^n\}
+		\end{align*}
+	
+		Um die Gleichheit $\norm{A}=\supo\normx{Ax}=\supl\normx{Ax}$ zu zeigen schauen wir uns die folgende Mengengleichheit an:
+	
+		\begin{align*}
+			\left\{\frac{\normx{Ax}}{\normx{x}}:x\in\mathbb{K}^n\setminus\{0\}\right\} &= \left\{\normx{\frac{1}{\normx{x}}Ax}:x\in\mathbb{K}^n\setminus\{0\}\right\} = \left\{\normx{A\frac{x}{\normx{x}}}:x\in\mathbb{K}^n\setminus\{0\}\right\} \\
+			&= \left\{\normx{Ay}:\normx{y}=1\right\} \subseteq \left\{\normx{Ay}:\normx{y}\leq1\right\}
+		\end{align*}
+	
+		\begin{align*}
+			\norm{A}=\supo\normx{Ax}\leq\supl\normx{Ax}
+		\end{align*}
+	
+		Da $\forall x \in \mathbb{K}^n, \normx{x}\leq 1: \normx{Ax} \leq \frac{\normx{Ax}}{\normx{x}} \leq \norm{A}$ folgt $\supl\normx{Ax}\leq \norm{A}$.
+		
+		\begin{align*}
+			\implies \norm{A} = \supo\normx{Ax} = \supl\normx{Ax}
+		\end{align*}
+	
+		\item zz: $\norm{I} = 1$ und $\forall A \in \mathbb{K}^{n\times n} \text{regulär}: \norm{A^{-1}}=\left(\inf_{\normx{x}=1}\normx{Ax}\right)^{-1}$
+		
+		\begin{align*}
+			\norm{I}=\supo\normx{Ix}=\supo\normx{x}=1
+		\end{align*}
+	
+		Sei $A \in \mathbb{K}^{n\times n}$ regulär beliebig. Wir können $A$ als bijektive Abbildung von $\mathbb{K}^n$ nach $\mathbb{K}^n$ auffassen.
+		
+		\begin{align*}
+			\norm{A^{-1}} &= \sup\left\{\frac{\normx{A^{-1}x}}{\normx{x}}:x\in\mathbb{K}^n\setminus\{0\}\right\} = \sup\left\{\frac{\normx{A^{-1}Ay}}{\normx{Ay}}:y\in\mathbb{K}^n\setminus\{0\}\right\} \\
+			&= \sup\left\{\frac{\normx{y}}{\normx{Ay}}:y\in\mathbb{K}^n\setminus\{0\}\right\} = \left(\inf\left\{\frac{\normx{Ay}}{\normx{y}}:y\in\mathbb{K}^n\setminus\{0\}\right\}\right)^{-1} \\
+			&= \left(\inf\left\{\normx{A\frac{y}{\normx{y}}}:y\in\mathbb{K}^n\setminus\{0\}\right\}\right)^{-1} = \left(\inf_{\normx{x}=1}\normx{Ax}\right)^{-1}
+		\end{align*}
+	
+		\item zz: $\forall A,B \in \mathbb{K}^{n\times n}: \norm{AB}\leq \norm{A}\cdot\norm{B}$. Gilt das auch für andere Normen?
+		
+		Wir zeigen zuerst $\forall A \in \mathbb{K}^{n\times n} \forall x \in \mathbb{K}^n: \normx{Ax} \leq \norm{A} \cdot \normx{x}$.
+		
+		\begin{align*}
+			\norm{A}\cdot\normx{x} &= \normx{x} \sup\left\{\frac{\normx{Ay}}{\normx{y}}:y\in\mathbb{K}^n\setminus\{0\}\right\} = \sup\left\{\normx{A\frac{y}{\normx{y}}\normx{x}}:y\in\mathbb{K}^n\setminus\{0\}\right\} \\
+			&= \sup\left\{\normx{Az}:\normx{z}=\normx{x}\right\} \geq \normx{Ax}
+		\end{align*}
+		
+		Sei $\forall A,B \in \mathbb{K}^{n\times n}$ beliebig.
+		
+		\begin{align*}
+			\norm{AB}&=\supo\normx{(AB)x}=\supo||A\underbrace{(Bx)}_{\in\mathbb{K}^n}||_X \leq \supo\norm{A}\cdot\normx{Bx} \\
+			&= \norm{A}\supo\normx{Bx}=\norm{A}\cdot\norm{B}
+		\end{align*}
+	
+		Nein, $\norm{AB} \leq \norm{A}\cdot \norm{B}$ gilt nicht für alle Normen.
+		
+		Gegenbeispiel:
+		
+		\begin{align*}
+			\norm{A}_\infty := \max_{i,j\in\{1,...,n\}}|A_{i,j}| &&
+			A:= \begin{pmatrix}
+				2 & 2\\
+				2 & 2
+			\end{pmatrix} && \implies A\cdot A = \begin{pmatrix}
+				8 & 8\\
+				8 & 8
+			\end{pmatrix}
+		\end{align*}
+	
+		\begin{align*}
+			\norm{A\cdot A}_\infty = 8 > 4 = 2 \cdot 2 = \norm{A}_\infty \cdot \norm{A}_\infty
+		\end{align*}
+		
 	\end{enumerate}
 \end{proof}
 
