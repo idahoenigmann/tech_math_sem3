@@ -30,7 +30,7 @@
 		Sei $x_0 \in [a,b]$ eine Nullstelle von $f$.
 		
 		\begin{align*}
-			X := [a,b]^2 && x^* := (x_0, x_0) && \Phi &: X \rightarrow X \\
+			X := \{(a_k, b_k): k \in \mathbb{N}\} \cup \{(x_0, x_0)\} && x^* := (x_0, x_0) && \Phi &: X \rightarrow X \\
 			&& && (x, y) &\mapsto \begin{cases}
 				(x, c), &\quad\text{falls} f(x)f(c)\le 0 \\
 				(c, y), &\quad\text{sonst}
@@ -49,6 +49,7 @@
 		\begin{align*}
 			\forall (a,b), (x,y) \in X: d((a,b),(x,y))\geq 0\\
 			\forall (a,b) \in X: d((a,b),(a,b)) = ||a - b| - |a - b|| = 0\\
+			\forall (a_k,b_k), (a_l,b_l) \in X: d((a_k,b_k),(a_l,b_l))=0 \implies (a_k,b_k) = (a_l,b_l) \text{ da }|a_k-b_k|=|a_l-b_l| \implies k=l\\
 			\forall (a,b), (x,y) \in X: d((a,b),(x,y)) = ||a - b| - |x - y|| = ||x - y| - |a - b|| = d((x,y),(a,b))\\
 			\forall (a,b), (x,y), (c,d) \in X: d((a,b),(x,y)) + d((x,y), (c,d)) = ||a - b| - |x - y|| + ||x - y| - |c - d|| \\
 			\geq ||a - b| - |x - y| + |x - y| - |c - d|| = ||a - b| - |c - d|| = d((a,b), (c,d))
@@ -161,7 +162,7 @@
 		
 		Da $\norm{A}$ existiert ist die Menge $\{\frac{\normx{Ax}}{\normx{x}}:x\in\mathbb{K}^n\setminus\{0\}\}$ beschränkt, d.h. $\exists C>0 \forall x\in\mathbb{K}^n\setminus\{0\} : C \geq \frac{\normx{Ax}}{\normx{x}}$. Für solche $C$ gilt nach Umformen $\normx{Ax}\leq C\normx{x}$.
 		
-		Die Menge $\{C>0:\normx{Ax}\leq C\normx{x} \forall x \in \mathbb{K}^n\}$ hat $\norm{A}$ als untere Schranke. Alle Werte kleiner als $\norm{A}$ können keine unteren Schranken mehr sein, da sonst $\norm{A}$ nicht das Supremum von $\{\frac{\normx{Ax}}{\normx{x}}:x\in\mathbb{K}^n\setminus\{0\}\}$ wäre.
+		Die Menge $\{C>0:\normx{Ax}\leq C\normx{x} \forall x \in \mathbb{K}^n\}$ hat $\norm{A}$ als obere Schranke. Alle Werte kleiner als $\norm{A}$ können keine oberen Schranken mehr sein, da sonst $\norm{A}$ nicht das Supremum von $\{\frac{\normx{Ax}}{\normx{x}}:x\in\mathbb{K}^n\setminus\{0\}\}$ wäre.
 		
 		\begin{align*}
 			\implies \norm{A} = \inf\{C>0: \normx{Ax}\leq C\normx{x} \forall x \in \mathbb{K}^n\}
@@ -175,7 +176,7 @@
 		\end{align*}
 	
 		\begin{align*}
-			\norm{A}=\supo\normx{Ax}\leq\supl\normx{Ax}
+			\implies \norm{A}=\supo\normx{Ax}\leq\supl\normx{Ax}
 		\end{align*}
 	
 		Da $\forall x \in \mathbb{K}^n, \normx{x}\leq 1: \normx{Ax} \leq \frac{\normx{Ax}}{\normx{x}} \leq \norm{A}$ folgt $\supl\normx{Ax}\leq \norm{A}$.
@@ -183,6 +184,8 @@
 		\begin{align*}
 			\implies \norm{A} = \supo\normx{Ax} = \supl\normx{Ax}
 		\end{align*}
+	
+		Da das Matrix-Vektor-Produkt eine stetige Funktion ist folgt aus der Kompaktheit von $\{x\in\mathbb{K}^n: \normx{x}=1\}$ und $\{x\in\mathbb{K}^n: \normx{x}\leq 1\}$ auch die Kompaktheit von $\{\normx{Ax}: \normx{x}=1\} = \{\normx{Ax}/\normx{x}: x \in \mathbb{K}^n\setminus\{0\}\}$ und $\{\normx{Ax}: \normx{x} \leq 1\}$. Aus der Analysis wissen wir nun, dass Infimum und Supremum auf der Menge angenommen werden.
 	
 		\item zz: $\norm{I} = 1$ und $\forall A \in \mathbb{K}^{n\times n} \text{regulär}: \norm{A^{-1}}=\left(\inf_{\normx{x}=1}\normx{Ax}\right)^{-1}$
 		
