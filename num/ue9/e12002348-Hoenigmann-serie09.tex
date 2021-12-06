@@ -1,0 +1,84 @@
+\documentclass[]{article}
+
+\usepackage{amsfonts} 
+\usepackage{amsmath}
+\usepackage[margin=3cm]{geometry}
+\usepackage{enumitem}
+\usepackage{amsthm}
+
+\newcommand{\norm}[1]{\left|\left|#1\right|\right|}
+\newcommand{\norminf}[1]{\norm{#1}_\infty}
+\newcommand{\normone}[1]{\norm{#1}_1}
+\newcommand{\supinf}{\sup_{\norminf{x}=1}}
+\newcommand{\supone}{\sup_{\normone{x}=1}}
+\newcommand{\maxz}[2]{\max_{#1=1,...,#2}}
+
+%opening
+\title{NUM UE9}
+\author{Ida Hönigmann}
+
+\begin{document}
+
+\maketitle
+
+\section{Aufgabe 33:}
+
+\begin{proof}
+	
+	\begin{enumerate}[label=\alph*)]
+		\item Wie letzte Woche gezeigt gilt $\norminf{A}=\supinf\norminf{Ax}$.
+		
+		Sei $x \in \mathbb{K}^n$ mit $\norminf{x}=1$ beliebig. Also gilt $\maxz{j}{n}|x_j|=1$.
+		
+		\begin{align*}
+			\norminf{Ax}=\maxz{j}{m}|(Ax)_j|=\maxz{j}{m}\left|\sum_{k=1}^{n}a_{jk}x_k\right|
+			\leq \maxz{j}{m}\sum_{k=1}^{n}|a_{jk}|\cdot|x_k| \leq \maxz{j}{m} \sum_{k=1}^{n}|a_{jk}|
+		\end{align*}
+		
+		Sei $j \in \{1, ..., m\}$ mit $\sum_{k=1}^{n}|a_{jk}|$ maximal. Falls $\sum_{k=1}^{n}|a_{jk}|=0$ folgt $\forall k=1,...,n \forall j=1,...,m: a_{jk}=0$ und somit ist die Aussage klar. Sonst gilt für
+		
+		\begin{align*}
+			x=\begin{pmatrix}
+				sgn(a_{j1})\\
+				sgn(a_{j2})\\
+				\cdots\\
+				sgn(a_{jn})\\
+			\end{pmatrix}
+			\in \mathbb{K}^n &&
+			\norminf{x}=1
+		\end{align*}
+		
+		\begin{align*}
+			\norminf{Ax}=\maxz{l}{m}\left|\sum_{k=1}^{n}a_{lk}x_k\right|=\maxz{l}{m}\left|\sum_{k=1}^{n}a_{lk}\cdot sgn(a_{jk})\right| = \left|\sum_{k=1}^{n}|a_{jk}|\right| = \sum_{k=1}^{n}|a_{jk}| = \maxz{j}{m}\sum_{k=1}^{n}|a_{jk}|
+		\end{align*}
+		
+		Also folgt $\norminf{A}=\maxz{j}{m}\sum_{k=1}^{n}|a_{jk}|$.
+		
+		\item 
+		Um $\normone{A}=\maxz{k}{n}\sum_{j=1}^{m}|a_{jk}|$ zu zeigen schauen wir uns zunächst folgendes an:
+		
+		Sei $x\in\mathbb{K}^n$ mit $\normone{x}=1$ beliebig. Also gilt $\sum_{j=1}^{n}|x_j|=1$.
+		
+		\begin{align*}
+			|(Ax)_j| &= \left|\sum_{k=1}^{n}a_{jk}x_k\right| \leq \left|\sum_{k=1}^{n}\maxz{l}{n}|a_{jl}|x_k\right| = \maxz{l}{n}|a_{jl}|\left|\sum_{k=1}^{n}x_k\right| \\  &\leq\maxz{l}{n}|a_{jl}|\sum_{k=1}^{n}|x_k| = \maxz{l}{n}|a_{jl}| \cdot \normone{x}
+			= \maxz{l}{n}|a_{jl}| \\
+			\implies \normone{Ax} &= \sum_{j=1}^{m}|(Ax)_j| \leq \sum_{j=1}^{m}\maxz{k}{n}|a_{jk}| = \maxz{k}{n}\sum_{j=1}^{m}|a_{jk}|
+		\end{align*}
+		
+		Wähle $j\in\{1, ..., n\}$ so, dass $\sum_{k=1}^{m}|a_{kj}|$ maximal ist. Sei $x\in\mathbb{K}^n$ mit $x_j=1$ und $\forall l\neq j: x_l=0$.
+		
+		Dann gilt
+		
+		\begin{align*}
+			|(Ax)_l| = \left|\sum_{k=1}^{n}a_{lk}x_k\right| = |a_{lj}| \\
+			\normone{Ax} = \sum_{k=1}^{m}|(Ax)_k| = \sum_{k=1}^{m}|a_{kj}| = \maxz{j}{n} \sum_{k=1}^{m}|a_{kj}|
+		\end{align*}
+		
+		Also folgt $\normone{A} = \maxz{k}{n}\sum_{j=1}^{m}|a_{jk}|$.
+	\end{enumerate}
+	
+
+\end{proof}
+
+
+\end{document}
