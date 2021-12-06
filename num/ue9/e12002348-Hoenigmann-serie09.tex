@@ -77,8 +77,66 @@
 		Also folgt $\normone{A} = \maxz{k}{n}\sum_{j=1}^{m}|a_{jk}|$.
 	\end{enumerate}
 	
-
 \end{proof}
 
+\newpage
+
+\section{Aufgabe 34:}
+
+\begin{proof}
+	Sei $A\in\mathbb{K}^{n\times n}$ ... irreduzibel und diagonaldominant beliebig.
+	
+	zz: $A$ ist regulär
+	
+	Angenommen $A$ wäre nicht regulär, also $\exists x\in\mathbb{K}^n\setminus\{0\}: Ax=0$. Dann folgt
+	
+	\begin{align*}
+		0 = (Ax)_j = \sum_{l=1}^{n}a_{jl}x_l\\
+		\implies -a_{jj}x_j = \sum_{l=1,l\neq j}^{n}a_{jl} x_l\\
+		\implies |a_{jj}|\cdot |x_j| = |a_{jj}x_j| = \left|\sum_{l=1,l\neq j}^{n}a_{jl} x_l\right| \leq \sum_{l=1,l\neq j}^{n}|a_{jl}| \cdot |x_l|.
+	\end{align*}
+
+	Definieren wir nun $J:=\{j\in\{1,...,n\}: |x_j| = \norminf{x}\}$ und $K:=\{k\in\{1,...,n\}: |x_k| < \norminf{x}\}$. Offensichtlich gilt $J \cup K = \{1, ..., n\}$ und $J \cap K = \emptyset$.
+
+	Fallunterscheidung:
+	
+	\begin{enumerate}[label=\arabic*. Fall: ]
+		\item $K = \emptyset$
+		
+		Also gilt $|x_1| = |x_2| = ... = |x_n|$.
+		
+		\begin{align*}
+			|a_{jj}|\cdot |x_j| \leq \sum_{l=1,l\neq j}^{n}|a_{jl}| \cdot |x_l| \\
+			\implies |a_{jj}| \leq \sum_{l=1,l\neq j}^{n}|a_{jl}|
+		\end{align*}
+	
+		Was ein Widerspruch zu $\forall j \in \{1,...,n\}: |a_{jj}| \geq \sum_{l=1, l\neq j}^{n}|a_{jl}| \land \exists j\in\{1,...,n\}: |a_{jj}| > \sum_{l=1, l\neq j}^{n}|a_{jl}|$ ist.
+		
+		\item $K \neq \emptyset$
+		
+		Da $A$ irreduzibel ist $\exists k\in K \exists j \in J: a_{jk} \neq 0$
+		
+		\begin{align*}
+			|a_{jj}| \leq \sum_{l=1,l\neq j}^{n}|a_{jl}|\frac{|x_l|}{|x_j|} = \sum_{l=1,l\neq j}^{n}|a_{jl}|\underbrace{\frac{|x_l|}{\norminf{x}}}_{\leq 1 \land \exists l: < 1} < \sum_{l=1,l\neq j}^{n}|a_{jl}|
+		\end{align*}
+	
+		Was ein Widerspruch zu $\forall j \in \{1,...,n\}: |a_{jj}| \geq \sum_{l=1, l\neq j}^{n}|a_{jl}|$ ist.
+	\end{enumerate}
+
+	In beiden Fällen folgt aus dem Widerspruch, dass $A$ regulär ist.
+	
+	zz: $\forall j=1, ..., n: a_{jj}\neq 0$
+	
+	Angenommen $\exists j\in \{1, ..., n\}: a_{jj} = 0$. Da $A$ diagonaldominant ist folgt
+	
+	\begin{align*}
+		\sum_{k=1,k\neq j}^{n}|a_{jk}| \leq |a_{jj}| = 0\\
+		\implies \forall k\in\{1, ..., n\}: |a_{jk}| = 0
+	\end{align*}
+
+	Was im Widerspruch zur Regularität von $A$ steht.
+	
+	Also folgt, dass $A$ regulär und $\forall j\in\{1,...,n\}:a_{jj}\neq 0$.
+\end{proof}
 
 \end{document}
