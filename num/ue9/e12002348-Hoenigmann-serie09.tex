@@ -138,5 +138,97 @@
 	
 	Also folgt, dass $A$ regulär und $\forall j\in\{1,...,n\}:a_{jj}\neq 0$.
 \end{proof}
+\newpage
+
+\section{Aufgabe 35:}
+\begin{proof}
+	Sei $A\in\mathbb{K}^{n\times n}$ irreduzibel und diagonaldominant beliebig.
+	
+	\begin{enumerate}
+		\item Jacobi-Verfahren:
+		
+		\begin{align*}
+			M:=-D^{-1}(A-D) \text{ mit } D:=\begin{pmatrix}
+				a_{11} & & \\
+				& \ddots & \\
+				& & a_{nn}
+			\end{pmatrix}
+		\end{align*}
+	
+		Nach 34 gilt $\forall j\in\{1.,,,.n\}: a_{jj}\neq 0$ also gilt $D$ ist regulär und somit existiert $D^{-1}$.
+		
+		Sei $\lambda\in\mathbb{K}$ beliebig mit $|\lambda|\geq 1$.
+		
+		Da wir bei der Irreduzibarkeit nur Werte $m_{ij}$ mit $i\neq j$ beachten gilt
+		
+		\begin{align*}
+			M-\lambda I \text{ ist irreduzibel} \iff M = -D^{-1}(A-D) \text{ ist irreduzibel}
+		\end{align*}
+	
+		Da eine Multiplikation mit $-D^{-1}$ nur die Zeilen skaliert gilt
+		
+		\begin{align*}
+			-D^{-1}(A-D) \text{ ist irreduzibel} \iff A-D \text{ ist irreduzibel} \\ \iff A \text{ ist irreduzibel (aus dem gleichen Grund wie oben)}
+		\end{align*}
+	
+		Also folgt, dass $M-\lambda I$ irreduzibel ist.
+		
+		Wir beobachten folgendes:
+		
+		\begin{align*}
+			\forall i\neq j: M_{ij} = (-D^{-1}(A-D))_{ij} = (-D^{-1}A)_{ij} = -\frac{a_{ij}}{d_{ii}} = -\frac{a_{ij}}{a_{ii}} \\
+			\forall i: M_{ii} = (-D^{-1}\underbrace{(A-D)}_{(A-D)_{ii}=0})_{ii} = 0
+		\end{align*}
+	
+		Nun folgt
+		
+		\begin{align*}
+			\sum_{k=1,k\neq j}^{n}|(M-\lambda I)_{jk}| = \sum_{k=1,k\neq j}^{n}|M_{jk}| = \sum_{k=1,k\neq j}^{n}\left|-\frac{a_{jk}}{a_{jj}}\right| = \sum_{k=1,k\neq j}^{n} \frac{|a_{jk}|}{|a_{jj}|}
+		\end{align*}
+	
+		Da $A$ diagonaldominant ist folgt 
+		
+		\begin{align*}
+			\sum_{k=1,k\neq j}^{n}|a_{jk}| \leq |a_{jj}| \implies \sum_{k=1,k\neq j}^{n}\frac{|a_{jk}|}{|a_{jj}|} \leq 1 \leq |\lambda|
+		\end{align*}
+	
+		Da $|(M-\lambda I)_{jj}| = |\lambda|$ folgt, dass $\sum_{k=1,k\neq j}^{n}|(M-\lambda I)_{jk}| \leq |(M-\lambda I)_{jj}|$. Für ein $j$ gilt sogar $\sum_{k=1,k\neq j}^{n}\frac{|a_{jk}|}{|a_{jj}|} < 1$ also existiert ein $j$ mit $\sum_{k=1,k\neq j}^{n}|(M-\lambda I)_{jk}| < |(M-\lambda I)_{jj}|$. Somit ist $M-\lambda I$ diagonaldominant.
+		
+		Insgesamt können wir folgern, dass $M-\lambda I$ für alle $\lambda$ mit $|\lambda|\geq 1$ regulär ist. Also ist $\lambda$ kein Eigenwert von $M$. Daraus folgt $\rho (M) < 1$ und aus dem Satz über globale Konvergenz, dass das Jacobi-Verfahren konvergiert.
+		
+		\item Gauss-Seidel-Verfahren:
+		
+		\begin{align*}
+			M:=-L^{-1}U && \text{mit} && L_{jk}=\begin{cases}
+				A_{jk} & \text{ für } j\geq k\\
+				0 & \text{ sonst}
+			\end{cases}
+			&& \text{und} && U_{jk}=\begin{cases}
+				A_{jk} & \text{ für } j < k\\
+				0 & \text{ sonst}
+			\end{cases}
+		\end{align*}
+	
+	Es gilt $L+U=A$ und $L$ ist regulär, da $\forall i\in\{1,...,n\}:A_{ii}\neq 0$. Also existiert $L^{-1}$.
+	
+	Sei $\lambda\in\mathbb{K}$ mit $|\lambda|\geq 1$ beliebig.
+	
+	$M-\lambda I = -L^{-1}U-\lambda I$ ist regulär genau dann wenn $(-L)(-L^{-1}U-\lambda I) = U+\lambda L$ regulär ist.
+	
+	Da $A=L+U$ irreduzibel ist folgt, dass auch $\lambda L + U$ irreduzibel ist (folgt aus der Definition von irreduzibel).
+	
+	Weiters gilt unter anderem wegen der Diagonaldominantheit von $A$, dass
+	
+	\begin{align*}
+		\sum_{k=1,k\neq j}^{n} |(\lambda L + U)_{jk}| \leq |\lambda| \sum_{k=1,k\neq j}^{n} |A_{jk}| \leq |\lambda|\cdot |a_{jj}| = |(\lambda L + U)_{jj}|
+	\end{align*}
+
+	Wobei ein $j$ existiert für dass sogar $|\lambda| \sum_{k=1,k\neq j}^{n} |A_{jk}| < |\lambda|\cdot |a_{jj}|$. Also ist $\lambda L + U$ diagonaldominant und somit regulär. Das impliziert die Regularität von $M-\lambda I$ was gleich wie beim Jacobi-Verfahren die Konvergenz impliziert.
+	
+	
+	
+	\end{enumerate}
+\end{proof}
+
 
 \end{document}
